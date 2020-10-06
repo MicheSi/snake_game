@@ -175,17 +175,17 @@ class Board(Canvas):
         self.delete(ALL)
         self.create_text(self.winfo_width() / 2, self.winfo_height() / 2, text="Game Over! Score {0}".format(self.score), fill="white")
 
-def Snake(Frame):
+class Snake(Frame):
     def __init__(self):
         super().__init__()
 
-        self.master.tile("Snake")
+        self.master.title("Snake")
         self.board = Board()
         self.pack()
 
 def main():
     root = Tk()
-    nib = Snake(Frame)
+    nib = Snake()
     root.mainloop()
 
 if __name__ == "__main__":

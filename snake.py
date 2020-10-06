@@ -67,7 +67,7 @@ class Board(Canvas):
         apple = self.find_withtag("apple")
         head = self.find_withtag("head")
 
-        x1, y1, x2, y2 = self.bbox(head)
+        x1, y1, x2, y2 = self.box(head)
         overlap = self.find_overlapping(x1, y1, x2, y2)
 
         for i in overlap:
@@ -100,7 +100,7 @@ class Board(Canvas):
         dots = self.find_withtag("dot")
         head = self.find_withtag("head")
 
-        x1, y1, x2, y2 = self.bbox(head)
+        x1, y1, x2, y2 = self.box(head)
         overlap = self.find_overlapping(x1, y1, x2, y2)
 
         for dot in dots:
@@ -128,4 +128,27 @@ class Board(Canvas):
         self.appleY = rand * Constants.DOT_SIZE
 
         self.create_image(self.appleX, self.appleY, anchor=NW, image=self.apple, tag="apple")
-        
+
+    # controls direction variables when cursor key is press
+    def onKeyPressed(self, e):
+        key = e.keysym
+
+        LEFT_CURSOR_KEY = "Left"
+        if key == LEFT_CURSOR_KEY and self.moveX <= 0:
+            self.moveX = -Constants.DOT_SIZE
+            self.moveY = 0
+
+        RIGHT_CURSOR_KEY = "Right"
+        if key == RIGHT_CURSOR_KEY and self.moveX >= 0:
+            self.moveX = Constants.DOT_SIZE
+            self.moveY = 0
+
+        UP_CURSOR_KEY = "Up"
+        if key == UP_CURSOR_KEY and self.moveY <= 0:
+            self.moveX = 0
+            self.moveY = -Constants.DOT_SIZE
+
+        DOWN_CURSOR_KEY = "Down"
+        if key == DOWN_CURSOR_KEY and self.moveY >= 0:
+            self.moveX = 0
+            self.moveY = Constants.DOT_SIZE

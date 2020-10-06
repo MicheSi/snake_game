@@ -60,3 +60,19 @@ class Board(Canvas):
         self.create_image(50, 50, image=self.head, anchor=NW, tag="head")
         self.create_image(30, 50, image=self.dot, anchor=NW, tag="dot")
         self.create_image(40, 50, image=self.dot, anchor=NW, tag="dot")
+
+    # check if snake head collides with apple
+    def checkAppleCollsion(self):
+        apple = self.find_withtag("apple")
+        head = self.find_withtag("head")
+
+        x1, y1, x2, y2 = self.bbox(head)
+        overlap = self.find_overlapping(x1, y1, x2, y2)
+
+        for i in overlap:
+            if apple[0] == i:
+                self.score += 1
+                x, y = self.coords(apple)
+                self.create_image(x, y, image=self.dot, anchor=NW, tage="dot")
+                self.locateApple()
+                

@@ -62,6 +62,7 @@ class Board(Canvas):
         self.create_image(40, 50, image=self.dot, anchor=NW, tag="dot")
 
     # check if snake head collides with apple
+    # if snake "eats" apple, increase score by 1
     def checkAppleCollsion(self):
         apple = self.find_withtag("apple")
         head = self.find_withtag("head")
@@ -115,3 +116,16 @@ class Board(Canvas):
             self.inGame = False
         if y1 > Constants.BOARD_HEIGHT - Constants.DOT_SIZE:
             self.inGame = False
+
+    # puts apple on Canvas
+    def locateApple(self):
+        apple = self.find_withtag("apple")
+        self.delete(apple[0])
+
+        rand = random.randint(0, Constants.MAX_RAND_POS)
+        self.appleX = rand * Constants.DOT_SIZE
+        rand = random.randint(0, Constants.MAX_RAND_POS)
+        self.appleY = rand * Constants.DOT_SIZE
+
+        self.create_image(self.appleX, self.appleY, anchor=NW, image=self.apple, tag="apple")
+        

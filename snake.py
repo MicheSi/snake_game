@@ -47,7 +47,7 @@ class Board(Canvas):
             self.ihead = Image.open("head.png")
             self.head = ImageTk.PhotoImage(self.ihead)
             self.iapple = Image.open("apple.png")
-            self.apple = ImageTk.PhotoImage(self.apple)
+            self.apple = ImageTk.PhotoImage(self.iapple)
 
         except IOError as err:
             print(err)
@@ -73,8 +73,8 @@ class Board(Canvas):
         for i in overlap:
             if apple[0] == i:
                 self.score += 1
-                x, y = self.coords(apple)
-                self.create_image(x, y, image=self.dot, anchor=NW, tage="dot")
+                x, y = self.coordinates(apple)
+                self.create_image(x, y, image=self.dot, anchor=NW, tag="dot")
                 self.locateApple()
 
     # moves snake object
@@ -174,3 +174,19 @@ class Board(Canvas):
     def gameOver(self):
         self.delete(ALL)
         self.create_text(self.winfo_width() / 2, self.winfo_height() / 2, text="Game Over! Score {0}".format(self.score), fill="white")
+
+def Snake(Frame):
+    def __init__(self):
+        super().__init__()
+
+        self.master.tile("Snake")
+        self.board = Board()
+        self.pack()
+
+def main():
+    root = Tk()
+    nib = Snake(Frame)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()

@@ -52,3 +52,11 @@ class Board(Canvas):
         except IOError as err:
             print(err)
             sys.exit(1)
+
+    # create objects on Canvas
+    def createObjects(self):
+        self.create_text(30, 10, text="Score: {0}".format(self.score), tag="score", fill="white")
+        self.create_image(self.appleX, self.appleY, image=self.apple, anchor=NW, tag="apple")
+        self.create_image(50, 50, image=self.head, anchor=NW, tag="head")
+        self.create_image(30, 50, image=self.dot, anchor=NW, tag="dot")
+        self.create_image(40, 50, image=self.dot, anchor=NW, tag="dot")

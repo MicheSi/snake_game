@@ -152,3 +152,25 @@ class Board(Canvas):
         if key == DOWN_CURSOR_KEY and self.moveY >= 0:
             self.moveX = 0
             self.moveY = Constants.DOT_SIZE
+
+    # creates new game each timer event
+    def onTimer(self):
+        self.drawScore()
+        self.checkCollisions()
+
+        if self.inGame:
+            self.checkAppleCollsion()
+            self.moveSnake()
+            self.after(Constants.DELAY, self.onTimer)
+        else:
+            self.gameOver()
+
+    # draws score
+    def drawScore(self):
+        score = self.find_withtag("score")
+        self.itemconfig(score, text="Score: {0}".format(self.score))
+
+    # deletes all objects on board and draws game over message
+    def gameOver(self):
+        self.delete(ALL)
+        self.create_text(self.winfo_width() / 2, self.winfo_height() / 2, text="Game Over! Score {0}".format(self.score), fill="white")

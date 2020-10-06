@@ -91,4 +91,27 @@ class Board(Canvas):
             self.move(items[spot], coordinate2[0] - coordinate1[0], coordinate2[1] - coordinate1[1])
             spot += 1
 
-        self.move(head, self.moveX, self.moveY)    
+        self.move(head, self.moveX, self.moveY)
+
+    # check for collisions
+    # if snake collides with itself, game over
+    def checkCollisions(self):
+        dots = self.find_withtag("dot")
+        head = self.find_withtag("head")
+
+        x1, y1, x2, y2 = self.bbox(head)
+        overlap = self.find_overlapping(x1, y1, x2, y2)
+
+        for dot in dots:
+            for i in overlap:
+                if i == dot:
+                    self.inGame = False
+
+        if x1 < 0:
+            self.inGame = False
+        if x1 > Constants.BOARD_WIDTH - Constants.DOT_SIZE:
+            self.inGame = False
+        if y1 < 0:
+            self.inGame = False
+        if y1 > Constants.BOARD_HEIGHT - Constants.DOT_SIZE:
+            self.inGame = False

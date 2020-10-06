@@ -75,4 +75,20 @@ class Board(Canvas):
                 x, y = self.coords(apple)
                 self.create_image(x, y, image=self.dot, anchor=NW, tage="dot")
                 self.locateApple()
-                
+
+    # moves snake object
+    def moveSnake(self):
+        dots = self.find_withtag("dot")
+        head = self.find_withtag("head")
+
+        items = dots + head
+
+        spot = 0
+
+        while spot < len(items) - 1:
+            coordinate1 = self.coordinates(items[spot])
+            coordinate2 = self.coordinates(items[spot + 1])
+            self.move(items[spot], coordinate2[0] - coordinate1[0], coordinate2[1] - coordinate1[1])
+            spot += 1
+
+        self.move(head, self.moveX, self.moveY)    

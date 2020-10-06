@@ -38,3 +38,17 @@ class Board(Canvas):
         self.locateApple()
         self.bind_all("<Key>", self.onKeyPressed)
         self.after(Constants.DELAY, self.onTimer)
+
+    # load imanges from disk
+    def loadImages(self):
+        try:
+            self.idot = Image.open("dot.png")
+            self.dot = ImageTk.PhotoImage(self.idot)
+            self.ihead = Image.open("head.png")
+            self.head = ImageTk.PhotoImage(self.ihead)
+            self.iapple = Image.open("apple.png")
+            self.apple = ImageTk.PhotoImage(self.apple)
+
+        except IOError as err:
+            print(err)
+            sys.exit(1)

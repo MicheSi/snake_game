@@ -67,7 +67,7 @@ class Board(Canvas):
         apple = self.find_withtag("apple")
         head = self.find_withtag("head")
 
-        x1, y1, x2, y2 = self.box(head)
+        x1, y1, x2, y2 = self.bbox(head)
         overlap = self.find_overlapping(x1, y1, x2, y2)
 
         for i in overlap:
@@ -100,7 +100,7 @@ class Board(Canvas):
         dots = self.find_withtag("dot")
         head = self.find_withtag("head")
 
-        x1, y1, x2, y2 = self.box(head)
+        x1, y1, x2, y2 = self.bbox(head)
         overlap = self.find_overlapping(x1, y1, x2, y2)
 
         for dot in dots:
@@ -168,7 +168,7 @@ class Board(Canvas):
     # draws score
     def drawScore(self):
         score = self.find_withtag("score")
-        self.itemconfig(score, text="Score: {0}".format(self.score))
+        self.itemconfigure(score, text="Score: {0}".format(self.score))
 
     # deletes all objects on board and draws game over message
     def gameOver(self):

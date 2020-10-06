@@ -47,7 +47,7 @@ class Board(Canvas):
             self.ihead = Image.open("head.png")
             self.head = ImageTk.PhotoImage(self.ihead)
             self.iapple = Image.open("apple.png")
-            self.apple = ImageTk.PhotoImage(self.apple)
+            self.apple = ImageTk.PhotoImage(self.iapple)
 
         except IOError as err:
             print(err)
@@ -67,14 +67,14 @@ class Board(Canvas):
         apple = self.find_withtag("apple")
         head = self.find_withtag("head")
 
-        x1, y1, x2, y2 = self.box(head)
+        x1, y1, x2, y2 = self.bbox(head)
         overlap = self.find_overlapping(x1, y1, x2, y2)
 
         for i in overlap:
             if apple[0] == i:
                 self.score += 1
-                x, y = self.coords(apple)
-                self.create_image(x, y, image=self.dot, anchor=NW, tage="dot")
+                x, y = self.coordinates(apple)
+                self.create_image(x, y, image=self.dot, anchor=NW, tag="dot")
                 self.locateApple()
 
     # moves snake object
@@ -100,7 +100,7 @@ class Board(Canvas):
         dots = self.find_withtag("dot")
         head = self.find_withtag("head")
 
-        x1, y1, x2, y2 = self.box(head)
+        x1, y1, x2, y2 = self.bbox(head)
         overlap = self.find_overlapping(x1, y1, x2, y2)
 
         for dot in dots:
@@ -168,9 +168,25 @@ class Board(Canvas):
     # draws score
     def drawScore(self):
         score = self.find_withtag("score")
-        self.itemconfig(score, text="Score: {0}".format(self.score))
+        self.itemconfigure(score, text="Score: {0}".format(self.score))
 
     # deletes all objects on board and draws game over message
     def gameOver(self):
         self.delete(ALL)
         self.create_text(self.winfo_width() / 2, self.winfo_height() / 2, text="Game Over! Score {0}".format(self.score), fill="white")
+
+class Snake(Frame):
+    def __init__(self):
+        super().__init__()
+
+        self.master.title("Snake")
+        self.board = Board()
+        self.pack()
+
+def main():
+    root = Tk()
+    nib = Snake()
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()

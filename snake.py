@@ -5,8 +5,8 @@ from tkinter import Tk, Frame, Canvas, ALL, NW
 
 # constants used in game
 class Constants:
-    BOARD_WIDTH = 300
-    BOARD_HEIGHT = 300
+    BOARD_WIDTH = 600
+    BOARD_HEIGHT = 600
     DELAY = 100
     DOT_SIZE = 10
     MAX_RAND_POS = 27
@@ -39,7 +39,7 @@ class Board(Canvas):
         self.bind_all("<Key>", self.onKeyPressed)
         self.after(Constants.DELAY, self.onTimer)
 
-    # load imanges from disk
+    # load images from disk
     def loadImages(self):
         try:
             self.idot = Image.open("dot.png")
@@ -63,7 +63,7 @@ class Board(Canvas):
 
     # check if snake head collides with apple
     # if snake "eats" apple, increase score by 1
-    def checkAppleCollsion(self):
+    def checkAppleCollision(self):
         apple = self.find_withtag("apple")
         head = self.find_withtag("head")
 
@@ -159,7 +159,7 @@ class Board(Canvas):
         self.checkCollisions()
 
         if self.inGame:
-            self.checkAppleCollsion()
+            self.checkAppleCollision()
             self.moveSnake()
             self.after(Constants.DELAY, self.onTimer)
         else:
